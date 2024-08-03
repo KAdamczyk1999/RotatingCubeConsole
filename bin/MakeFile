@@ -1,0 +1,8 @@
+SOURCE_FILES=$(wildcard ../src/*.c)
+
+rotating_cube:
+	gcc -g --std=c99 -I../inc $(SOURCE_FILES) -o rotating_cube
+
+run:
+	make
+	./rotating_cube
