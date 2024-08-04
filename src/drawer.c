@@ -24,12 +24,6 @@ void _castPointsToDistrictValues(Vector point, float* pointX, float* pointY) {
     *pointY = (((-point.values[1] + 1.0f) / 2) * GRID_HEIGHT);
 }
 
-void placePointOnGrid(Vector point) {
-    float pointX, pointY;
-    _castPointsToDistrictValues(point, &pointX, &pointY);
-    grid[(int)pointY][(int)pointX] = '2';
-}
-
 void _establishLineStartAndStop(float* pointStart, float* pointStop, int point1Coord, int point2Coord) {
     if (point2Coord > point1Coord) {
         *pointStart = (float)point1Coord;
@@ -40,7 +34,7 @@ void _establishLineStartAndStop(float* pointStart, float* pointStop, int point1C
     }
 }
 
-void drawLineOnGrid(Vector point1, Vector point2) {
+void _drawLineOnGrid(Vector point1, Vector point2) {
     float point1X, point1Y, point2X, point2Y;
     _castPointsToDistrictValues(point1, &point1X, &point1Y);
     _castPointsToDistrictValues(point2, &point2X, &point2Y);
@@ -57,6 +51,19 @@ void drawLineOnGrid(Vector point1, Vector point2) {
         grid[(int)point1Y][(int)point1X] = '1';
         point1X += xStep;
         point1Y += yStep;
+    }
+}
+
+void drawRectOnGrid(Shape rect) {
+    _drawLineOnGrid(rect.vertices[rect.verticesCount - 1], rect.vertices[0]);
+    for (int i = 0; i < rect.verticesCount - 1; i++) {
+        _drawLineOnGrid(rect.vertices[i], rect.vertices[i + 1]);
+    }
+}
+
+void connectRects(Shape rect1, Shape rect2) {
+    for (int i = 0; i < rect1.verticesCount; i++) {
+        _drawLineOnGrid(rect1.vertices[i], rect2.vertices[i]);
     }
 }
 
