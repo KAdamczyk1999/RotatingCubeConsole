@@ -29,10 +29,15 @@ void _freeOperators(Matrix* xOp, Matrix* yOp, Matrix* zOp) {
 }
 
 int main() {
-    float pointCoords[12] = {-.5f, -.5f, .0f, -.5f, .5f, .0f, .5f, .5f, .0f, .5f, -.5f, .0f};
-    Vector points[4];
-    Shape rect;
-    createRect(&rect, points, pointCoords);
+    float pointCoordsFront[12] = {-.5f, -.5f, .5f, -.5f, .5f, .5f, .5f, .5f, .5f, .5f, -.5f, .5f};
+    Vector pointsFront[4];
+    Shape rectFront;
+    createRect(&rectFront, pointsFront, pointCoordsFront);
+
+    float pointCoordsBack[12] = {-.5f, -.5f, -.5f, -.5f, .5f, -.5f, .5f, .5f, -.5f, .5f, -.5f, -.5f};
+    Vector pointsBack[4];
+    Shape rectBack;
+    createRect(&rectBack, pointsBack, pointCoordsBack);
 
     Matrix xOp;
     Matrix yOp;
@@ -47,16 +52,19 @@ int main() {
         fillGridWithBaseValues();
         system("cls");
 
-        drawLineOnGrid(rect.vertices[rect.verticesCount - 1], rect.vertices[0]);
-        for (int i = 0; i < rect.verticesCount - 1; i++) {
-            drawLineOnGrid(rect.vertices[i], rect.vertices[i + 1]);
-        }
+        drawRectOnGrid(rectFront);
+        drawRectOnGrid(rectBack);
+        connectRects(rectFront, rectBack);
 
         printGrid();
-        for (int i = 0; i < rect.verticesCount; i++) {
-            applyOperatorOn3dPoint(xOp, &(rect.vertices[i]));
-            applyOperatorOn3dPoint(yOp, &(rect.vertices[i]));
-            applyOperatorOn3dPoint(zOp, &(rect.vertices[i]));
+        for (int i = 0; i < rectFront.verticesCount; i++) {
+            applyOperatorOn3dPoint(xOp, &(rectFront.vertices[i]));
+            applyOperatorOn3dPoint(yOp, &(rectFront.vertices[i]));
+            applyOperatorOn3dPoint(zOp, &(rectFront.vertices[i]));
+
+            applyOperatorOn3dPoint(xOp, &(rectBack.vertices[i]));
+            applyOperatorOn3dPoint(yOp, &(rectBack.vertices[i]));
+            applyOperatorOn3dPoint(zOp, &(rectBack.vertices[i]));
         }
     }
 

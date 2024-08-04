@@ -8,6 +8,6 @@
 
 void fillGridWithBaseValues();
 void printGrid();
-void placePointOnGrid(Vector point);
 void createRect(Shape* rect, Vector* points, float* pointCoords);
-void drawLineOnGrid(Vector point1, Vector point2);
+void drawRectOnGrid(Shape rect);
+void connectRects(Shape rect1, Shape rect2);
