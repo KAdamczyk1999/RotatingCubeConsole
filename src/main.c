@@ -14,7 +14,7 @@ void _setUpOperator(Matrix* op, void (*f)(Matrix*, float)) {
     op->columnCount = 3;
     op->rowCount = 3;
 
-    f(op, 2.0f);
+    f(op, rand() / (RAND_MAX / (3.0f)) + 2.0f);
 }
 
 void _freeOperators(Matrix* xOp, Matrix* yOp, Matrix* zOp) {
@@ -50,13 +50,13 @@ int main() {
     for (;;) {
         _delay(100);
         fillGridWithBaseValues();
-        system("cls");
-
         drawRectOnGrid(rectFront);
         drawRectOnGrid(rectBack);
         connectRects(rectFront, rectBack);
+        flattenGrid();
 
         printGrid();
+
         for (int i = 0; i < rectFront.verticesCount; i++) {
             applyOperatorOn3dPoint(xOp, &(rectFront.vertices[i]));
             applyOperatorOn3dPoint(yOp, &(rectFront.vertices[i]));

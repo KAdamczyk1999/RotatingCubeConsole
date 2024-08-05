@@ -11,3 +11,4 @@ void printGrid();
 void createRect(Shape* rect, Vector* points, float* pointCoords);
 void drawRectOnGrid(Shape rect);
 void connectRects(Shape rect1, Shape rect2);
+void flattenGrid();
