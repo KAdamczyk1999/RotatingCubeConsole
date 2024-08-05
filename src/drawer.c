@@ -2,22 +2,26 @@
 
 #include <math.h>
 #include <stdio.h>
+#include <string.h>
+#include <unistd.h>
 
 char grid[GRID_HEIGHT][GRID_WIDTH + 1];
+char gridFlat[GRID_HEIGHT * (GRID_WIDTH + 1)];
 
 void fillGridWithBaseValues() {
     for (int i = 0; i < GRID_HEIGHT; i++) {
         for (int j = 0; j < GRID_WIDTH; j++) grid[i][j] = '0';
-        grid[i][GRID_WIDTH] = '\0';
+        grid[i][GRID_WIDTH] = '\n';
     }
 }
 
-void printGrid() {
+void flattenGrid() {
     for (int i = 0; i < GRID_HEIGHT; i++) {
-        printf("%s\n", grid[i]);
+        memcpy(&(gridFlat[(GRID_WIDTH + 1) * i]), grid[i], sizeof(grid[i]));
     }
-    printf("\n");
 }
+
+void printGrid() { puts(gridFlat); }
 
 void _castPointsToDistrictValues(Vector point, float* pointX, float* pointY) {
     *pointX = (((point.values[0] + 1.0f) / 2) * GRID_WIDTH);
