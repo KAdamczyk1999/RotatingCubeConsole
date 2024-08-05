@@ -3,7 +3,6 @@
 #include <math.h>
 #include <stdio.h>
 #include <string.h>
-#include <unistd.h>
 
 char grid[GRID_HEIGHT][GRID_WIDTH + 1];
 char gridFlat[GRID_HEIGHT * (GRID_WIDTH + 1)];
